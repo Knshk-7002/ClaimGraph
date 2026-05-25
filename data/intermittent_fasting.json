@@ -1,0 +1,116 @@
+{
+  "claims": [
+    {
+      "id": "if_insulin_sensitivity",
+      "text": "Intermittent fasting improves insulin sensitivity in adults.",
+      "tags": ["nutrition", "metabolism"],
+      "context": "Healthy adults, 12-week regimens"
+    },
+    {
+      "id": "if_fasting_lowers_insulin",
+      "text": "Time-restricted eating lowers fasting insulin.",
+      "tags": ["nutrition"]
+    },
+    {
+      "id": "if_caloric_deficit",
+      "text": "Time-restricted eating leads to a modest spontaneous caloric deficit.",
+      "tags": ["nutrition", "calories"]
+    },
+    {
+      "id": "if_weight_loss",
+      "text": "Time-restricted eating produces modest weight loss in adults.",
+      "tags": ["nutrition", "weight"]
+    },
+    {
+      "id": "if_independent_of_calories",
+      "text": "Intermittent fasting improves insulin sensitivity independently of weight loss.",
+      "tags": ["nutrition", "metabolism"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "if_e1",
+      "claim_id": "if_fasting_lowers_insulin",
+      "source": "Sutton et al., Cell Metabolism 2018 - 5wk early TRF crossover",
+      "direction": "supports",
+      "strength": 0.7,
+      "source_quality": 0.85
+    },
+    {
+      "id": "if_e2",
+      "claim_id": "if_caloric_deficit",
+      "source": "Gabel et al., Nutr. Healthy Aging 2018",
+      "direction": "supports",
+      "strength": 0.55,
+      "source_quality": 0.6
+    },
+    {
+      "id": "if_e3",
+      "claim_id": "if_weight_loss",
+      "source": "Cienfuegos et al., Cell Metabolism 2020 - 4h vs 6h TRF RCT",
+      "direction": "supports",
+      "strength": 0.65,
+      "source_quality": 0.8
+    },
+    {
+      "id": "if_e4",
+      "claim_id": "if_weight_loss",
+      "source": "Lowe et al., JAMA Intern. Med. 2020 - TREAT RCT",
+      "direction": "contradicts",
+      "strength": 0.6,
+      "source_quality": 0.85,
+      "notes": "TRE alone produced only minimal weight loss vs control."
+    },
+    {
+      "id": "if_e5",
+      "claim_id": "if_independent_of_calories",
+      "source": "Liu et al., NEJM 2022 - 12mo TRE vs caloric restriction",
+      "direction": "contradicts",
+      "strength": 0.7,
+      "source_quality": 0.95,
+      "notes": "Similar outcomes when calories matched."
+    },
+    {
+      "id": "if_e6",
+      "claim_id": "if_insulin_sensitivity",
+      "source": "Sundfor et al., Nutr. Metab. Cardiovasc. Dis. 2018",
+      "direction": "supports",
+      "strength": 0.5,
+      "source_quality": 0.7
+    }
+  ],
+  "edges": [
+    {
+      "source": "if_weight_loss",
+      "target": "if_caloric_deficit",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "if_insulin_sensitivity",
+      "target": "if_fasting_lowers_insulin",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "if_insulin_sensitivity",
+      "target": "if_weight_loss",
+      "type": "depends_on",
+      "weight": 0.7,
+      "notes": "Weight loss is a known mediator of insulin sensitivity improvement."
+    },
+    {
+      "source": "if_independent_of_calories",
+      "target": "if_insulin_sensitivity",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "if_independent_of_calories",
+      "target": "if_weight_loss",
+      "type": "contradicts",
+      "weight": 0.8,
+      "notes": "If weight loss is the mediator, the 'independent' claim weakens."
+    }
+  ]
+}

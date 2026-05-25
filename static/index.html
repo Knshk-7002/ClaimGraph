@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ClaimGraph</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>ClaimGraph</h1>
+      <p class="tagline">
+        a DAG of claims and evidence &mdash; confidence propagated in
+        <strong>topological order</strong>
+      </p>
+    </div>
+    <div class="controls">
+      <label>
+        Dataset:
+        <select id="dataset-select"></select>
+      </label>
+      <button id="btn-load">Load</button>
+      <button id="btn-reset" class="ghost">Reset</button>
+      <button id="btn-topo" class="ghost">Show topo order</button>
+      <button id="btn-longest" class="ghost">Longest reasoning chain</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="graph-area">
+      <div id="cy"></div>
+      <div id="legend">
+        <h3>Edges</h3>
+        <ul>
+          <li><span class="swatch dep"></span>depends_on (DAG)</li>
+          <li><span class="swatch sup"></span>supports</li>
+          <li><span class="swatch con"></span>contradicts</li>
+        </ul>
+        <h3>Node colour</h3>
+        <div id="confidence-bar">
+          <span>-1</span>
+          <div class="bar"></div>
+          <span>+1</span>
+        </div>
+        <p class="hint">Hover edges &amp; nodes for details. Click a claim for the side panel.</p>
+      </div>
+    </section>
+
+    <aside id="panel">
+      <section id="claim-detail">
+        <h2>Select a claim</h2>
+        <p class="hint">Click any node in the graph.</p>
+      </section>
+
+      <section id="add-forms">
+        <details>
+          <summary>+ Add claim</summary>
+          <form id="form-claim">
+            <label>ID <input name="id" placeholder="(auto)" /></label>
+            <label>Text <textarea name="text" required></textarea></label>
+            <label>Tags (comma-separated) <input name="tags" /></label>
+            <label>Context <input name="context" /></label>
+            <button type="submit">Add claim</button>
+          </form>
+        </details>
+
+        <details>
+          <summary>+ Add evidence</summary>
+          <form id="form-evidence">
+            <label>Claim <select name="claim_id" required></select></label>
+            <label>Source <input name="source" required /></label>
+            <label>Direction
+              <select name="direction">
+                <option value="supports">supports</option>
+                <option value="contradicts">contradicts</option>
+              </select>
+            </label>
+            <label>Strength
+              <input name="strength" type="number" min="0" max="1" step="0.05" value="0.5" />
+            </label>
+            <label>Source quality
+              <input name="source_quality" type="number" min="0" max="1" step="0.05" value="0.5" />
+            </label>
+            <label>Notes <input name="notes" /></label>
+            <button type="submit">Add evidence</button>
+          </form>
+        </details>
+
+        <details>
+          <summary>+ Add edge</summary>
+          <form id="form-edge">
+            <label>Source claim <select name="source" required></select></label>
+            <label>Target claim <select name="target" required></select></label>
+            <label>Type
+              <select name="type">
+                <option value="depends_on">depends_on</option>
+                <option value="supports">supports</option>
+                <option value="contradicts">contradicts</option>
+              </select>
+            </label>
+            <label>Weight
+              <input name="weight" type="number" min="0" max="2" step="0.1" value="1.0" />
+            </label>
+            <button type="submit">Add edge</button>
+            <p class="hint">depends_on edges are validated against the DAG &mdash; cycles are rejected.</p>
+          </form>
+        </details>
+      </section>
+
+      <section id="messages"></section>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
