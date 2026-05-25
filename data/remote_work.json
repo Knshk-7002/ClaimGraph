@@ -1,0 +1,146 @@
+{
+  "claims": [
+    {
+      "id": "rw_individual_output",
+      "text": "Remote work reduces individual output for routine knowledge tasks.",
+      "tags": ["remote-work", "productivity"],
+      "context": "Knowledge workers, post-2020"
+    },
+    {
+      "id": "rw_focus_deep_work",
+      "text": "Remote work improves focus for deep, uninterrupted work.",
+      "tags": ["remote-work", "deep-work"],
+      "context": "Roles with long uninterrupted tasks"
+    },
+    {
+      "id": "rw_team_coordination",
+      "text": "Remote work harms cross-team coordination on novel projects.",
+      "tags": ["remote-work", "coordination"],
+      "context": "Cross-functional product teams"
+    },
+    {
+      "id": "rw_office_distractions",
+      "text": "Office environments contain more involuntary interruptions than home offices.",
+      "tags": ["remote-work", "interruptions"]
+    },
+    {
+      "id": "rw_async_comm_overhead",
+      "text": "Asynchronous communication adds latency to ambiguous decisions.",
+      "tags": ["remote-work", "communication"]
+    },
+    {
+      "id": "rw_overall_productivity",
+      "text": "Remote work reduces overall team productivity.",
+      "tags": ["remote-work", "productivity"],
+      "context": "The headline question from the ClaimGraph walkthrough."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "rw_e1",
+      "claim_id": "rw_individual_output",
+      "source": "Bloom et al., QJE 2015 - Ctrip RCT on work-from-home",
+      "direction": "contradicts",
+      "strength": 0.85,
+      "source_quality": 0.9,
+      "notes": "13% performance increase among call-center workers."
+    },
+    {
+      "id": "rw_e2",
+      "claim_id": "rw_individual_output",
+      "source": "Microsoft WTI 2022, large internal observational study",
+      "direction": "supports",
+      "strength": 0.5,
+      "source_quality": 0.55,
+      "notes": "Self-report; mixed signal across roles."
+    },
+    {
+      "id": "rw_e3",
+      "claim_id": "rw_focus_deep_work",
+      "source": "DeFilippis et al., HBS WP 2020 - calendar telemetry",
+      "direction": "supports",
+      "strength": 0.6,
+      "source_quality": 0.75
+    },
+    {
+      "id": "rw_e4",
+      "claim_id": "rw_office_distractions",
+      "source": "Mark et al., CHI 2008 - interruption study",
+      "direction": "supports",
+      "strength": 0.75,
+      "source_quality": 0.8
+    },
+    {
+      "id": "rw_e5",
+      "claim_id": "rw_team_coordination",
+      "source": "Yang et al., Nat. Hum. Behav. 2022 - Microsoft collaboration networks",
+      "direction": "supports",
+      "strength": 0.7,
+      "source_quality": 0.85,
+      "notes": "Cross-group ties weakened during shift to remote."
+    },
+    {
+      "id": "rw_e6",
+      "claim_id": "rw_team_coordination",
+      "source": "GitLab transparency report 2023",
+      "direction": "contradicts",
+      "strength": 0.4,
+      "source_quality": 0.45,
+      "notes": "All-remote org with strong async culture."
+    },
+    {
+      "id": "rw_e7",
+      "claim_id": "rw_async_comm_overhead",
+      "source": "Cramton, Org. Sci. 2001",
+      "direction": "supports",
+      "strength": 0.6,
+      "source_quality": 0.7
+    }
+  ],
+  "edges": [
+    {
+      "source": "rw_focus_deep_work",
+      "target": "rw_office_distractions",
+      "type": "depends_on",
+      "weight": 1.0,
+      "notes": "Focus advantage relies on home having fewer interruptions."
+    },
+    {
+      "source": "rw_team_coordination",
+      "target": "rw_async_comm_overhead",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "rw_overall_productivity",
+      "target": "rw_individual_output",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "rw_overall_productivity",
+      "target": "rw_focus_deep_work",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "rw_overall_productivity",
+      "target": "rw_team_coordination",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "rw_focus_deep_work",
+      "target": "rw_individual_output",
+      "type": "contradicts",
+      "weight": 0.6,
+      "notes": "If focus is better remote, individual output going down is harder to justify."
+    },
+    {
+      "source": "rw_team_coordination",
+      "target": "rw_overall_productivity",
+      "type": "supports",
+      "weight": 0.6
+    }
+  ]
+}

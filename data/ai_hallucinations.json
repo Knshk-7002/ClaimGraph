@@ -1,0 +1,115 @@
+{
+  "claims": [
+    {
+      "id": "ai_synth_data_hallucinate",
+      "text": "AI models hallucinate more when fine-tuned on synthetic data.",
+      "tags": ["ai", "training-data"]
+    },
+    {
+      "id": "ai_synth_distribution_drift",
+      "text": "Synthetic data drifts from the source distribution as it is generated.",
+      "tags": ["ai", "distribution"]
+    },
+    {
+      "id": "ai_model_collapse",
+      "text": "Recursive training on model-generated text causes model collapse.",
+      "tags": ["ai", "training"]
+    },
+    {
+      "id": "ai_rlhf_reduces_hallucination",
+      "text": "RLHF on human-labelled corrections reduces hallucination rate.",
+      "tags": ["ai", "rlhf"]
+    },
+    {
+      "id": "ai_retrieval_grounding_reduces",
+      "text": "Retrieval-augmented generation reduces hallucination on factual queries.",
+      "tags": ["ai", "rag"]
+    },
+    {
+      "id": "ai_overall_hallucinations_growing",
+      "text": "Overall hallucination rate grows as LLMs train on more web-scraped, AI-authored content.",
+      "tags": ["ai", "trend"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ai_e1",
+      "claim_id": "ai_model_collapse",
+      "source": "Shumailov et al., Nature 2024 - 'The Curse of Recursion'",
+      "direction": "supports",
+      "strength": 0.85,
+      "source_quality": 0.95
+    },
+    {
+      "id": "ai_e2",
+      "claim_id": "ai_synth_distribution_drift",
+      "source": "Alemohammad et al., 2023 - self-consuming generative models",
+      "direction": "supports",
+      "strength": 0.7,
+      "source_quality": 0.75
+    },
+    {
+      "id": "ai_e3",
+      "claim_id": "ai_synth_data_hallucinate",
+      "source": "Gerstgrasser et al., 2024 - mixed real+synthetic training",
+      "direction": "contradicts",
+      "strength": 0.6,
+      "source_quality": 0.7,
+      "notes": "Mixing synthetic with real data avoided collapse."
+    },
+    {
+      "id": "ai_e4",
+      "claim_id": "ai_rlhf_reduces_hallucination",
+      "source": "Ouyang et al., 2022 - InstructGPT",
+      "direction": "supports",
+      "strength": 0.65,
+      "source_quality": 0.85
+    },
+    {
+      "id": "ai_e5",
+      "claim_id": "ai_retrieval_grounding_reduces",
+      "source": "Lewis et al., NeurIPS 2020 - RAG",
+      "direction": "supports",
+      "strength": 0.75,
+      "source_quality": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "ai_model_collapse",
+      "target": "ai_synth_distribution_drift",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "ai_synth_data_hallucinate",
+      "target": "ai_synth_distribution_drift",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "ai_overall_hallucinations_growing",
+      "target": "ai_synth_data_hallucinate",
+      "type": "depends_on",
+      "weight": 1.0
+    },
+    {
+      "source": "ai_overall_hallucinations_growing",
+      "target": "ai_model_collapse",
+      "type": "depends_on",
+      "weight": 0.7
+    },
+    {
+      "source": "ai_rlhf_reduces_hallucination",
+      "target": "ai_overall_hallucinations_growing",
+      "type": "contradicts",
+      "weight": 0.7
+    },
+    {
+      "source": "ai_retrieval_grounding_reduces",
+      "target": "ai_overall_hallucinations_growing",
+      "type": "contradicts",
+      "weight": 0.7
+    }
+  ]
+}
