@@ -59,7 +59,9 @@ export default function ClaimPanel({ graphData, selectedClaim, onClose, onDelete
         {/* Header */}
         <div className="p-4 border-b border-border flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-bold leading-snug">{claim.text}</h2>
+            <div className="rounded-lg border border-border bg-bg-panel2/50 px-3 py-2.5">
+              <h2 className="text-sm font-bold leading-snug">{claim.text}</h2>
+            </div>
             <div className="flex flex-wrap gap-1.5 mt-2">
               {(claim.tags || []).map(t => (
                 <span key={t} className="px-2 py-0.5 rounded-full bg-bg-panel2 border border-border text-[10px] text-gray-400">
@@ -151,7 +153,7 @@ export default function ClaimPanel({ graphData, selectedClaim, onClose, onDelete
           ) : (
             <ul className="space-y-1.5">
               {directDeps.map(c => (
-                <li key={c.id} className="text-xs text-gray-300 flex items-start gap-1.5">
+                <li key={c.id} className="rounded-lg border border-border bg-bg-panel2/40 px-3 py-2 text-xs text-gray-300 flex items-start gap-1.5">
                   <ArrowRight size={12} className="text-accent mt-0.5 shrink-0" />
                   <span>{c.text}</span>
                 </li>
@@ -167,7 +169,7 @@ export default function ClaimPanel({ graphData, selectedClaim, onClose, onDelete
           ) : (
             <ul className="space-y-1.5">
               {dependents.map(c => (
-                <li key={c.id} className="text-xs text-gray-300 flex items-start gap-1.5">
+                <li key={c.id} className="rounded-lg border border-border bg-bg-panel2/40 px-3 py-2 text-xs text-gray-300 flex items-start gap-1.5">
                   <ArrowLeft size={12} className="text-warn mt-0.5 shrink-0" />
                   <span>{c.text}</span>
                 </li>
@@ -190,9 +192,10 @@ export default function ClaimPanel({ graphData, selectedClaim, onClose, onDelete
               {paths.length === 0 ? (
                 <p className="text-xs text-gray-500">No reasoning paths (root claim).</p>
               ) : (
-                <ol className="space-y-2 list-decimal list-inside">
+                <ol className="space-y-2">
                   {paths.map((path, i) => (
-                    <li key={i} className="text-xs text-gray-400">
+                    <li key={i} className="rounded-lg border border-border bg-bg-panel2/40 px-3 py-2 text-xs text-gray-400">
+                      <span className="text-accent font-semibold mr-1.5">{i + 1}.</span>
                       {path.map(id => graphData.claims.find(c => c.id === id)?.text?.slice(0, 40) || id).join(' → ')}
                     </li>
                   ))}
@@ -216,12 +219,12 @@ export default function ClaimPanel({ graphData, selectedClaim, onClose, onDelete
               {transDeps.length === 0 ? (
                 <p className="text-xs text-gray-500">No transitive dependencies.</p>
               ) : (
-                <ul className="space-y-1">
+                <ul className="space-y-1.5">
                   {transDeps.map(id => {
                     const c = graphData.claims.find(cl => cl.id === id)
                     return (
-                      <li key={id} className="text-xs text-gray-400 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent/50" />
+                      <li key={id} className="rounded-lg border border-border bg-bg-panel2/40 px-3 py-2 text-xs text-gray-400 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent/50 shrink-0" />
                         {c ? c.text : id}
                       </li>
                     )
