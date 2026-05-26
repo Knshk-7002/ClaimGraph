@@ -8,8 +8,8 @@ import { datasets } from './data/datasets'
 import { computeConfidences, kahnTopologicalSort, computeLevels } from './engine/graph'
 
 function App() {
-  const [currentDataset, setCurrentDataset] = useState('remote_work')
-  const [graphData, setGraphData] = useState(() => initGraphData('remote_work'))
+  const [currentDataset, setCurrentDataset] = useState('python_first_language')
+  const [graphData, setGraphData] = useState(() => initGraphData('python_first_language'))
 
   function initGraphData(name) {
     const ds = datasets[name]

@@ -141,7 +141,7 @@ export default function Landing({ onLoadDataset }) {
         >
           Explore real-world reasoning graphs with curated evidence
         </motion.p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {Object.entries(datasets).map(([key, ds], i) => (
             <motion.div
               key={key}

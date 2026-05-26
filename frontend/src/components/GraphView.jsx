@@ -104,22 +104,6 @@ export default function GraphView({ graphData, selectedClaim, onSelectClaim, hig
             'background-color': '#1e3a5f',
           },
         },
-        {
-          selector: 'node.highlight-topo',
-          style: {
-            'border-color': '#60a5fa',
-            'border-width': 3.5,
-            'background-color': '#1e3a5f',
-          },
-        },
-        {
-          selector: 'node.highlight-path',
-          style: {
-            'border-color': '#fbbf24',
-            'border-width': 3.5,
-            'background-color': '#422006',
-          },
-        },
         // Dependency edges: solid, subtle gray
         {
           selector: "edge[type = 'depends_on']",
@@ -183,7 +167,37 @@ export default function GraphView({ graphData, selectedClaim, onSelectClaim, hig
             'text-opacity': 0.6,
           },
         },
-        // Highlighted path edges
+        // Hover styles (class-based to avoid bypass conflicts)
+        {
+          selector: 'node.hover',
+          style: {
+            'background-color': '#2d3748',
+          },
+        },
+        {
+          selector: 'edge.hover',
+          style: {
+            opacity: 1,
+            width: 2.5,
+          },
+        },
+        // Highlight styles (after hover so they take priority)
+        {
+          selector: 'node.highlight-topo',
+          style: {
+            'border-color': '#60a5fa',
+            'border-width': 3.5,
+            'background-color': '#1e3a5f',
+          },
+        },
+        {
+          selector: 'node.highlight-path',
+          style: {
+            'border-color': '#fbbf24',
+            'border-width': 3.5,
+            'background-color': '#422006',
+          },
+        },
         {
           selector: 'edge.highlight-path',
           style: {
@@ -216,31 +230,21 @@ export default function GraphView({ graphData, selectedClaim, onSelectClaim, hig
       }
     })
 
-    // Hover effects
+    // Hover effects using addClass/removeClass to avoid bypass style conflicts
     cy.on('mouseover', 'node', (evt) => {
-      evt.target.style({ 'background-color': '#2d3748', cursor: 'pointer' })
+      evt.target.addClass('hover')
       containerRef.current.style.cursor = 'pointer'
     })
     cy.on('mouseout', 'node', (evt) => {
-      const isSelected = evt.target.selected()
-      const isPath = evt.target.hasClass('highlight-path')
-      const isTopo = evt.target.hasClass('highlight-topo')
-      if (isSelected) evt.target.style({ 'background-color': '#1e3a5f' })
-      else if (isPath) evt.target.style({ 'background-color': '#422006' })
-      else if (isTopo) evt.target.style({ 'background-color': '#1e3a5f' })
-      else evt.target.style({ 'background-color': '#1e293b' })
+      evt.target.removeClass('hover')
       containerRef.current.style.cursor = 'default'
     })
 
     cy.on('mouseover', 'edge', (evt) => {
-      evt.target.style({ opacity: 1, width: Math.max(evt.target.style('width'), 2.5) })
+      evt.target.addClass('hover')
     })
     cy.on('mouseout', 'edge', (evt) => {
-      const type = evt.target.data('type')
-      const isHighlighted = evt.target.hasClass('highlight-path')
-      if (isHighlighted) return
-      if (type === 'depends_on') evt.target.style({ opacity: 0.6, width: 1.5 })
-      else evt.target.style({ opacity: 0.45, width: 1.2 })
+      evt.target.removeClass('hover')
     })
 
     cyRef.current = cy
