@@ -1,4 +1,38 @@
 export const datasets = {
+  python_first_language: {
+    name: "Python as First Language (CSE B.Tech)",
+    description: "Is Python the best first programming language for CSE students?",
+    data: {
+      claims: [
+        { id: "python_best", text: "Python is the best first programming language for CSE students.", tags: ["programming", "education"], context: "Debate among B.Tech CSE freshers and faculty." },
+        { id: "python_simple", text: "Python has simpler syntax than C/C++ making it beginner-friendly.", tags: ["python", "syntax"], context: "Comparing first-semester onboarding experiences." },
+        { id: "c_teaches_memory", text: "C/C++ teaches memory management which is essential for CSE.", tags: ["c", "systems"], context: "Pointers, malloc/free, stack vs heap." },
+        { id: "python_libs", text: "Python's rich library ecosystem accelerates learning projects.", tags: ["python", "libraries"], context: "NumPy, Flask, requests — students build real apps faster." },
+        { id: "dsa_harder_python", text: "Data structures are harder to understand deeply in Python due to abstraction.", tags: ["python", "dsa"], context: "Linked lists, trees — Python hides pointer mechanics." },
+        { id: "industry_python", text: "Most tech companies accept Python for coding interviews.", tags: ["industry", "interviews"], context: "FAANG, startups, competitive programming." },
+        { id: "os_needs_c", text: "Operating Systems and Computer Networks courses require C knowledge.", tags: ["curriculum", "systems"], context: "Socket programming, process scheduling labs." }
+      ],
+      evidence: [
+        { id: "cse_e1", claim_id: "python_simple", source: "IEEE Education Survey, 2023 — top universities adopting Python", direction: "supports", strength: 0.9, source_quality: 0.85, notes: "70%+ of top-50 CS departments use Python in intro courses." },
+        { id: "cse_e2", claim_id: "python_simple", source: "Stack Overflow Developer Survey 2024", direction: "supports", strength: 0.7, source_quality: 0.8, notes: "Python ranked most-wanted language among beginners." },
+        { id: "cse_e3", claim_id: "c_teaches_memory", source: "GATE syllabus requirements — OS & architecture sections", direction: "supports", strength: 0.8, source_quality: 0.9, notes: "GATE CS/IT explicitly tests pointer arithmetic and memory layout." },
+        { id: "cse_e4", claim_id: "c_teaches_memory", source: "Student feedback survey — too complex early on", direction: "contradicts", strength: 0.5, source_quality: 0.6, notes: "40% of first-year students found C pointers demotivating." },
+        { id: "cse_e5", claim_id: "python_libs", source: "GitHub trending repos analysis — student projects", direction: "supports", strength: 0.6, source_quality: 0.7, notes: "Python repos dominate student project showcases." },
+        { id: "cse_e6", claim_id: "dsa_harder_python", source: "Prof. lecture on pointer-based trees and linked lists", direction: "supports", strength: 0.7, source_quality: 0.75, notes: "Understanding next-pointer traversal is harder without explicit pointers." },
+        { id: "cse_e7", claim_id: "dsa_harder_python", source: "LeetCode success rates — Python vs C++ submissions", direction: "contradicts", strength: 0.6, source_quality: 0.7, notes: "Python users have comparable acceptance rates on DSA problems." },
+        { id: "cse_e8", claim_id: "industry_python", source: "FAANG hiring data 2024 — accepted languages", direction: "supports", strength: 0.85, source_quality: 0.9, notes: "All major tech companies accept Python in coding rounds." },
+        { id: "cse_e9", claim_id: "os_needs_c", source: "University curriculum analysis — lab requirements", direction: "supports", strength: 0.9, source_quality: 0.85, notes: "OS, CN, and Embedded Systems labs mandate C." }
+      ],
+      edges: [
+        { source: "python_best", target: "python_simple", type: "depends_on", weight: 1.0, notes: "Beginner-friendliness is a key factor." },
+        { source: "python_best", target: "python_libs", type: "depends_on", weight: 1.0, notes: "Library ecosystem matters for project-based learning." },
+        { source: "python_best", target: "industry_python", type: "depends_on", weight: 1.0, notes: "Interview readiness is a practical consideration." },
+        { source: "python_best", target: "c_teaches_memory", type: "depends_on", weight: 1.0, notes: "Memory management skill is a counterargument." },
+        { source: "python_best", target: "dsa_harder_python", type: "depends_on", weight: 1.0, notes: "DSA depth is a concern for Python-first approaches." },
+        { source: "c_teaches_memory", target: "os_needs_c", type: "depends_on", weight: 1.0, notes: "C's relevance partly rests on OS/systems curriculum." }
+      ]
+    }
+  },
   remote_work: {
     name: "Remote Work & Productivity",
     description: "Does remote work reduce overall team productivity?",
